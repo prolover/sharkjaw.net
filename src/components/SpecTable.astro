@@ -1,0 +1,68 @@
+---
+interface Spec {
+  model: string;
+  holdingCapacity?: number;
+  bollardPull?: number;
+  chainDiaRange?: string;
+  jawOpening?: string;
+  dimensions?: string;
+  weight?: string;
+  hydraulicPressure?: string;
+  power?: number;
+}
+
+interface Props {
+  specs: Spec[];
+  caption?: string;
+}
+
+const { specs, caption } = Astro.props;
+
+if (!specs.length) return;
+
+// Determine which columns have data
+const hasColumn = {
+  holdingCapacity: specs.some(s => s.holdingCapacity),
+  bollardPull: specs.some(s => s.bollardPull),
+  chainDiaRange: specs.some(s => s.chainDiaRange),
+  jawOpening: specs.some(s => s.jawOpening),
+  dimensions: specs.some(s => s.dimensions),
+  weight: specs.some(s => s.weight),
+  hydraulicPressure: specs.some(s => s.hydraulicPressure),
+  power: specs.some(s => s.power),
+};
+---
+
+<div class="spec-table-wrapper">
+  <table class="spec-table">
+    {caption && <caption class="sr-only">{caption}</caption>}
+    <thead>
+      <tr>
+        <th>Model</th>
+        {hasColumn.holdingCapacity && <th>Holding Capacity (MT)</th>}
+        {hasColumn.bollardPull && <th>Bollard Pull (Ton)</th>}
+        {hasColumn.chainDiaRange && <th>Chain Dia. Range</th>}
+        {hasColumn.jawOpening && <th>Jaw Opening</th>}
+        {hasColumn.dimensions && <th>Dimensions (L×W×H)</th>}
+        {hasColumn.weight && <th>Weight</th>}
+        {hasColumn.hydraulicPressure && <th>Hydraulic Pressure</th>}
+        {hasColumn.power && <th>Power (KW)</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {specs.map(spec => (
+        <tr>
+          <td><strong>{spec.model}</strong></td>
+          {hasColumn.holdingCapacity && <td>{spec.holdingCapacity ?? '—'}</td>}
+          {hasColumn.bollardPull && <td>{spec.bollardPull ?? '—'}</td>}
+          {hasColumn.chainDiaRange && <td>{spec.chainDiaRange ?? '—'}</td>}
+          {hasColumn.jawOpening && <td>{spec.jawOpening ?? '—'}</td>}
+          {hasColumn.dimensions && <td>{spec.dimensions ?? '—'}</td>}
+          {hasColumn.weight && <td>{spec.weight ?? '—'}</td>}
+          {hasColumn.hydraulicPressure && <td>{spec.hydraulicPressure ?? '—'}</td>}
+          {hasColumn.power && <td>{spec.power ?? '—'}</td>}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

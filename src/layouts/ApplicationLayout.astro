@@ -1,0 +1,298 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ProductCard from '../components/ProductCard.astro';
+import CTABlock from '../components/CTABlock.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { company } from '../data/company';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    vesselTypes?: string[];
+    recommendedProducts?: string[];
+    lastUpdated?: Date;
+    heroImage?: string;
+    sortOrder?: number;
+  };
+  slug: string;
+}
+
+const { frontmatter, slug } = Astro.props;
+
+const {
+  title,
+  description,
+  vesselTypes = [],
+  recommendedProducts = [],
+  lastUpdated,
+  heroImage,
+} = frontmatter;
+
+// Resolve recommended product entries
+const allProducts = recommendedProducts.length > 0
+  ? await getCollection('products')
+  : [];
+const recommendedEntries = allProducts.filter(p =>
+  recommendedProducts.includes(p.slug)
+);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { label: 'Applications', href: '/applications/' },
+  { label: title },
+];
+
+// Last updated formatted
+const lastUpdatedFormatted = lastUpdated
+  ? new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastUpdated)
+  : null;
+
+// CTA title derived from first vessel type
+const primaryVesselType = vesselTypes[0] ?? 'Your Vessel';
+const ctaTitle = `Ready to Specify Towing Equipment for Your ${primaryVesselType}?`;
+---
+
+<BaseLayout title={title} description={description} image={heroImage} type="WebPage">
+  <div class="application-page">
+
+    <!-- Breadcrumb -->
+    <div class="container">
+      <Breadcrumb items={breadcrumbItems} />
+    </div>
+
+    <!-- Hero Section -->
+    <section class="app-hero section-dark">
+      <div class="container app-hero-inner">
+        <div class="app-hero-text">
+          <h1 class="app-hero-title">{title}</h1>
+          <p class="app-hero-desc">{description}</p>
+
+          {vesselTypes.length > 0 && (
+            <div class="app-vessel-pills">
+              <span class="pills-label">Vessel Types:</span>
+              <div class="pills">
+                {vesselTypes.map(vt => <span class="pill">{vt}</span>)}
+              </div>
+            </div>
+          )}
+
+          {lastUpdatedFormatted && (
+            <p class="app-last-updated">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Last updated: {lastUpdatedFormatted}
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- MDX Body Content -->
+    <section class="app-body section">
+      <div class="container container-narrow prose">
+        <slot />
+      </div>
+    </section>
+
+    <!-- Recommended Products Section -->
+    {recommendedEntries.length > 0 && (
+      <section class="app-products section section-light" id="recommended-products">
+        <div class="container">
+          <h2 class="section-title">Recommended Products</h2>
+          <p class="section-subtitle">
+            Equipment selected for typical {primaryVesselType} towing operations.
+            Contact us to confirm the right configuration for your specific vessel.
+          </p>
+          <div class="app-products-grid">
+            {recommendedEntries.map(entry => (
+              <ProductCard
+                title={entry.data.title}
+                slug={entry.slug}
+                description={entry.data.description}
+                image={entry.data.heroImage}
+                swlRange={entry.data.swlRange}
+                certifications={entry.data.certifications}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CTA Block -->
+    <CTABlock
+      title={ctaTitle}
+      subtitle={`Provide your vessel's bollard pull, required SWL, and classification society — ${company.name} will respond within ${company.tradeTerms.responseTime} with a tailored equipment recommendation.`}
+      buttonText="Request a Quote"
+      buttonHref="/contact/"
+      variant="dark"
+    />
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────── */
+  .app-hero {
+    background: var(--sj-dark);
+    color: var(--sj-white);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+  .app-hero-title {
+    color: var(--sj-white);
+    font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+    line-height: 1.15;
+    margin-bottom: var(--space-md);
+  }
+  .app-hero-desc {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-lg);
+    max-width: 680px;
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* ── Vessel Type Pills ──────────────────────────── */
+  .app-vessel-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  .pills-label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .pill {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .app-last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: var(--space-sm);
+  }
+
+  /* ── MDX Body Prose ─────────────────────────────── */
+  .app-body :global(.prose h2) {
+    font-size: var(--text-2xl);
+    color: var(--sj-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--sj-border);
+  }
+  .app-body :global(.prose h2:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .app-body :global(.prose h3) {
+    font-size: var(--text-xl);
+    color: var(--sj-primary);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+  .app-body :global(.prose p) {
+    color: var(--sj-steel);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+  .app-body :global(.prose ul),
+  .app-body :global(.prose ol) {
+    padding-left: 1.5rem;
+    color: var(--sj-steel);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+  .app-body :global(.prose li) {
+    margin-bottom: 0.4rem;
+  }
+  .app-body :global(.prose strong) {
+    color: var(--sj-primary);
+    font-weight: 600;
+  }
+  .app-body :global(.prose table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-xl);
+  }
+  .app-body :global(.prose thead tr) {
+    background: var(--sj-primary);
+    color: var(--sj-white);
+  }
+  .app-body :global(.prose th) {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .app-body :global(.prose td) {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--sj-border);
+    color: var(--sj-steel);
+  }
+  .app-body :global(.prose tbody tr:nth-child(odd)) {
+    background: var(--sj-light);
+  }
+
+  /* ── Recommended Products ───────────────────────── */
+  .section-light {
+    background: var(--sj-light);
+  }
+  .section-subtitle {
+    text-align: center;
+    max-width: 580px;
+    margin: calc(-1 * var(--space-md)) auto var(--space-2xl);
+    color: var(--sj-steel);
+    font-size: var(--text-base);
+  }
+  .app-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+  @media (max-width: 960px) {
+    .app-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .app-products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── Shared ─────────────────────────────────────── */
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+</style>

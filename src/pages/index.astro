@@ -1,0 +1,717 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import CertLogos from '../components/CertLogos.astro';
+import CTABlock from '../components/CTABlock.astro';
+import SpecTable from '../components/SpecTable.astro';
+import { company } from '../data/company';
+
+const sharkJawSpecs = [
+  { model: 'SJ-100', holdingCapacity: 100, bollardPull: 80,  chainDiaRange: '52–76 mm',  jawOpening: '250 mm', dimensions: '900×620×480',  weight: '1,850 kg', hydraulicPressure: '180–210 bar', power: 11  },
+  { model: 'SJ-150', holdingCapacity: 150, bollardPull: 120, chainDiaRange: '62–88 mm',  jawOpening: '300 mm', dimensions: '1050×700×540', weight: '2,400 kg', hydraulicPressure: '180–210 bar', power: 15  },
+  { model: 'SJ-250', holdingCapacity: 250, bollardPull: 200, chainDiaRange: '76–102 mm', jawOpening: '360 mm', dimensions: '1200×820×620', weight: '3,600 kg', hydraulicPressure: '200–250 bar', power: 22  },
+  { model: 'SJ-350', holdingCapacity: 350, bollardPull: 280, chainDiaRange: '88–114 mm', jawOpening: '420 mm', dimensions: '1400×960×720', weight: '5,200 kg', hydraulicPressure: '200–250 bar', power: 30  },
+  { model: 'SJ-500', holdingCapacity: 500, bollardPull: 400, chainDiaRange: '102–127 mm', jawOpening: '500 mm', dimensions: '1650×1100×840', weight: '7,800 kg', hydraulicPressure: '210–280 bar', power: 45  },
+  { model: 'SJ-700', holdingCapacity: 700, bollardPull: 560, chainDiaRange: '114–152 mm', jawOpening: '580 mm', dimensions: '1900×1280×960', weight: '11,500 kg', hydraulicPressure: '210–280 bar', power: 75  },
+];
+---
+
+<BaseLayout
+  title="Home"
+  description="SharkJaw — specialist supplier of shark jaw and towing pin systems for tugboats, AHTS and offshore vessels. 25-700 MT SWL. ABS/BV/CCS/DNV/LR/NK/KR/RINA certified. Hong Kong."
+>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       1. HERO
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="hero section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Marine Towing Equipment</p>
+        <h1 class="hero-h1">Shark Jaw &amp; Towing Pin Systems</h1>
+        <p class="hero-subtitle">For Tugboats, AHTS &amp; Offshore Vessels — 25–700 MT SWL</p>
+        <div class="hero-actions">
+          <a href="/contact/" class="btn btn-primary hero-btn">
+            Get a Quote
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="/products/shark-jaw/" class="btn btn-outline hero-btn">View Products</a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            ABS · BV · CCS · DNV · LR
+          </span>
+          <span class="hero-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            FOB / CIF / CFR from Hong Kong
+          </span>
+          <span class="hero-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Response within 24 hours
+          </span>
+        </div>
+      </div>
+      <div class="hero-image-wrap" aria-hidden="true">
+        <div class="hero-image-placeholder">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+            <path d="M8 12h8M12 8v8"/>
+          </svg>
+          <p>Hero image</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       2. WHY SHARKJAW — 4 Pillars
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section section-light pillars-section">
+    <div class="container">
+      <h2 class="section-title">Why SharkJaw</h2>
+      <div class="pillars-grid">
+
+        <div class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="2" x2="12" y2="5"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="5" y2="12"/>
+              <line x1="19" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
+          <h3>Towing Equipment Specialists</h3>
+          <p>We do one thing — shark jaw and towing pin systems — and we do it right.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <h3>Classification-Ready</h3>
+          <p>ABS, BV, CCS, DNV, LR, NK, KR, RINA. All major class societies supported.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="4" y1="21" x2="4" y2="14"/>
+              <line x1="4" y1="10" x2="4" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12" y2="3"/>
+              <line x1="20" y1="21" x2="20" y2="16"/>
+              <line x1="20" y1="12" x2="20" y2="3"/>
+              <line x1="1" y1="14" x2="7" y2="14"/>
+              <line x1="9" y1="8" x2="15" y2="8"/>
+              <line x1="17" y1="16" x2="23" y2="16"/>
+            </svg>
+          </div>
+          <h3>Custom SWL Range</h3>
+          <p>From 25 MT harbour tugs to 700 MT anchor handlers. Engineered to your specifications.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3>Global Delivery from Hong Kong</h3>
+          <p>Flexible trade terms. FOB / CIF / CFR. T/T, L/C, D/P accepted.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       3. PRODUCTS GRID
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section products-section">
+    <div class="container">
+      <h2 class="section-title">Our Product Range</h2>
+      <p class="section-sub">Hydraulic towing equipment engineered for the demands of commercial marine operations.</p>
+      <div class="products-grid">
+        <ProductCard
+          title="Shark Jaw"
+          slug="shark-jaw"
+          swlRange="25–700 MT"
+          description="Hydraulic chain & wire stoppers"
+          certifications={['ABS','BV','CCS','DNV']}
+        />
+        <ProductCard
+          title="Towing Pin"
+          slug="towing-pin"
+          swlRange="50–500 MT"
+          description="Fixed & retractable towing pins"
+          certifications={['ABS','BV','CCS','DNV']}
+        />
+        <ProductCard
+          title="Combo System"
+          slug="shark-jaw-towing-pin-combo"
+          swlRange="100–700 MT"
+          description="Integrated shark jaw + towing pin"
+          certifications={['ABS','BV','CCS','DNV']}
+        />
+        <ProductCard
+          title="HPU"
+          slug="hydraulic-power-unit"
+          description="Dedicated hydraulic power units"
+          certifications={['ABS','BV','CCS','DNV']}
+        />
+        <ProductCard
+          title="Spare Parts"
+          slug="spare-parts"
+          description="Jaw inserts, seals, pins, valves"
+          certifications={['ABS','BV','CCS','DNV']}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       4. QUICK SPEC TABLE
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section section-light specs-section">
+    <div class="container">
+      <h2 class="section-title">Technical Specifications at a Glance</h2>
+      <p class="section-sub">Standard shark jaw models — custom SWL configurations available on request.</p>
+      <SpecTable
+        specs={sharkJawSpecs}
+        caption="Shark jaw technical specifications by model: SJ-100 through SJ-700"
+      />
+      <p class="specs-note">
+        All specifications subject to final engineering. Custom models available for non-standard bollard pull requirements.
+        <a href="/contact/">Contact us</a> to discuss your project.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       5. CERTIFICATIONS
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section certs-section">
+    <div class="container certs-inner">
+      <h2 class="section-title">Classification Society Certifications</h2>
+      <p class="section-sub">Type approval documentation available for all major classification societies.</p>
+      <CertLogos size="lg" />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       6. HOW WE WORK — 4 Steps
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section section-light how-section">
+    <div class="container">
+      <h2 class="section-title">How We Work</h2>
+      <p class="section-sub">A streamlined process from your first enquiry to delivery and beyond.</p>
+      <div class="steps-grid">
+
+        <div class="step-card">
+          <div class="step-number" aria-hidden="true">01</div>
+          <h3>Specification Review</h3>
+          <p>Share your vessel type, bollard pull, and classification requirements. We'll confirm feasibility and ask the right questions.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number" aria-hidden="true">02</div>
+          <h3>Technical Proposal</h3>
+          <p>Receive a detailed proposal with GA drawings within 5 working days. Includes model recommendation and optional configurations.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number" aria-hidden="true">03</div>
+          <h3>Manufacturing &amp; QC</h3>
+          <p>Production with full quality control per classification society requirements. Factory Acceptance Testing available on request.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number" aria-hidden="true">04</div>
+          <h3>Delivery &amp; Support</h3>
+          <p>Worldwide delivery via FOB / CIF / CFR from Hong Kong. Ongoing technical support throughout the equipment's service life.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       7. APPLICATIONS — 3 Cards
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="section applications-section">
+    <div class="container">
+      <h2 class="section-title">Applications</h2>
+      <p class="section-sub">Shark jaw and towing pin systems for every segment of the commercial towing industry.</p>
+      <div class="app-grid">
+
+        <a href="/applications/tugboat/" class="app-card">
+          <div class="app-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 20h20"/>
+              <path d="M5 20V10l7-7 7 7v10"/>
+              <rect x="9" y="14" width="6" height="6"/>
+            </svg>
+          </div>
+          <h3>Tugboat</h3>
+          <p>Harbour and ocean-going tugs from 25 MT to 350 MT bollard pull. Compact designs optimised for deck space constraints.</p>
+          <span class="app-link">
+            Explore tugboat solutions
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="/applications/ahts-vessel/" class="app-card">
+          <div class="app-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 17l3-9 6 3 6-3 3 9"/>
+              <path d="M2 20h20"/>
+              <path d="M12 8V4"/>
+              <path d="M8 6h8"/>
+            </svg>
+          </div>
+          <h3>AHTS Vessel</h3>
+          <p>Anchor handling tug supply vessels demanding the highest SWL ratings — up to 700 MT with integrated combo systems.</p>
+          <span class="app-link">
+            Explore AHTS solutions
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <div class="app-card app-card-no-link">
+          <div class="app-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+              <path d="M2 12h4M18 12h4M12 2v4M12 18v4"/>
+            </svg>
+          </div>
+          <h3>Offshore Workboat</h3>
+          <p>Platform supply vessels and offshore support craft requiring versatile towing capability and class-compliant documentation.</p>
+          <span class="app-link app-link-muted">Coming soon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       8. STATS — Dark band
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="stats-section" aria-label="Company statistics">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">{company.stats.yearsExperience}</span>
+        <span class="stat-label">Years in Marine Industry</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-number">{company.stats.classificationSocieties}</span>
+        <span class="stat-label">Classification Societies</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-number">{company.stats.swlRange}</span>
+        <span class="stat-label">SWL Range</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       9. CTA BLOCK
+  ══════════════════════════════════════════════════════════════ -->
+  <CTABlock />
+
+</BaseLayout>
+
+<style>
+  /* ── Shared ──────────────────────────────────────────────── */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+  .section-light {
+    background: var(--sj-light);
+  }
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+    text-align: center;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--sj-steel);
+    font-size: var(--text-lg);
+    max-width: 640px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  /* ── Hero ───────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    background: var(--sj-dark);
+    color: var(--sj-white);
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--sj-primary) 0%, var(--sj-dark) 60%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--sj-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: var(--space-sm);
+  }
+  .hero-h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    color: var(--sj-white);
+    line-height: 1.15;
+    margin-bottom: var(--space-md);
+  }
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: rgba(255,255,255,0.8);
+    margin-bottom: var(--space-xl);
+    font-family: var(--font-body);
+  }
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+  }
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: var(--sj-white);
+    background: transparent;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-base);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: var(--sj-white);
+    background: rgba(255,255,255,0.1);
+  }
+  .hero-trust {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.7);
+    font-family: var(--font-body);
+  }
+  .hero-trust-item svg {
+    color: var(--sj-accent);
+    flex-shrink: 0;
+  }
+  .hero-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: calc(var(--radius) * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    color: rgba(255,255,255,0.3);
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+  }
+
+  /* ── Pillars ────────────────────────────────────────────── */
+  .pillars-section .section-title {
+    margin-bottom: var(--space-2xl);
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+  .pillar-card {
+    background: var(--sj-white);
+    border-radius: calc(var(--radius) * 1.5);
+    padding: var(--space-xl);
+    border-top: 3px solid var(--sj-accent);
+    box-shadow: 0 2px 12px rgba(27,58,92,0.07);
+  }
+  .pillar-icon {
+    color: var(--sj-primary);
+    margin-bottom: var(--space-md);
+  }
+  .pillar-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .pillar-card p {
+    color: var(--sj-steel);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  /* ── Products Grid ──────────────────────────────────────── */
+  .products-section {
+    background: var(--sj-white);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* ── Spec Table ─────────────────────────────────────────── */
+  .specs-note {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    margin-top: var(--space-lg);
+  }
+  .specs-note a {
+    color: var(--sj-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .specs-note a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Certifications ─────────────────────────────────────── */
+  .certs-section {
+    background: var(--sj-white);
+  }
+  .certs-inner {
+    text-align: center;
+  }
+
+  /* ── How We Work ────────────────────────────────────────── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    counter-reset: step;
+  }
+  .step-card {
+    background: var(--sj-white);
+    border-radius: calc(var(--radius) * 1.5);
+    padding: var(--space-xl);
+    position: relative;
+    box-shadow: 0 2px 12px rgba(27,58,92,0.07);
+  }
+  .step-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--sj-primary);
+    opacity: 0.12;
+    line-height: 1;
+    margin-bottom: var(--space-sm);
+    user-select: none;
+  }
+  .step-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .step-card p {
+    color: var(--sj-steel);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  /* ── Applications ───────────────────────────────────────── */
+  .applications-section {
+    background: var(--sj-white);
+  }
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+  .app-card {
+    display: block;
+    padding: var(--space-xl);
+    border: 1px solid rgba(27,58,92,0.1);
+    border-radius: calc(var(--radius) * 1.5);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .app-card:not(.app-card-no-link):hover {
+    box-shadow: 0 8px 32px rgba(27,58,92,0.12);
+    border-color: var(--sj-accent);
+    transform: translateY(-2px);
+  }
+  .app-card-no-link {
+    cursor: default;
+    opacity: 0.75;
+  }
+  .app-icon {
+    color: var(--sj-primary);
+    margin-bottom: var(--space-md);
+  }
+  .app-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .app-card p {
+    color: var(--sj-steel);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+  .app-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--sj-accent);
+  }
+  .app-link-muted {
+    color: var(--sj-steel);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* ── Stats ──────────────────────────────────────────────── */
+  .stats-section {
+    background: var(--sj-dark);
+    padding: var(--space-2xl) 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+  }
+  .stat-number {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--sj-accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.02em;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 1200px) {
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-image-wrap {
+      display: none;
+    }
+    .app-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+    .stat-divider {
+      width: 60px;
+      height: 1px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pillars-grid,
+    .steps-grid,
+    .app-grid,
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-actions {
+      flex-direction: column;
+    }
+    .hero-btn {
+      text-align: center;
+      justify-content: center;
+    }
+  }
+</style>

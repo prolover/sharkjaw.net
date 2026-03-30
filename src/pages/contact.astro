@@ -1,0 +1,649 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { company } from '../data/company';
+---
+
+<BaseLayout
+  title="Contact & Get a Quote"
+  description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}, Hong Kong.`}
+  type="ContactPage"
+>
+  <SchemaOrg
+    type="ContactPage"
+    title="Contact & Get a Quote"
+    description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}, Hong Kong.`}
+  />
+
+  <!-- ══════════════════════════════════════════
+       BREADCRUMB
+  ══════════════════════════════════════════ -->
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Contact' }]} />
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PAGE HEADER
+  ══════════════════════════════════════════ -->
+  <div class="page-header">
+    <div class="container">
+      <h1>Get a Quote</h1>
+      <p class="page-subtitle">
+        Tell us about your project. We respond to all inquiries within
+        {company.tradeTerms.responseTime} on business days.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT — TWO COLUMNS
+  ══════════════════════════════════════════ -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- LEFT: FORM -->
+        <div class="form-col">
+          <h2 class="col-heading">Send Your Inquiry</h2>
+
+          <form action="/api/quote" method="POST" class="quote-form" novalidate>
+
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="name">Name <span class="required" aria-hidden="true">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Your full name"
+                  autocomplete="name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder="Company / Organisation"
+                  autocomplete="organization"
+                />
+              </div>
+            </div>
+
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="you@company.com"
+                  autocomplete="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+1 555 000 0000"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="vessel_type">Vessel Type</label>
+                <select id="vessel_type" name="vessel_type">
+                  <option value="">— Select Vessel Type —</option>
+                  <option value="harbour-tug">Harbour Tugboat</option>
+                  <option value="ocean-tug">Ocean-Going Tugboat</option>
+                  <option value="ahts">AHTS Vessel</option>
+                  <option value="psv">Platform Supply Vessel</option>
+                  <option value="osv">Offshore Support Vessel</option>
+                  <option value="cable-laying">Cable-Laying Vessel</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="swl">Required SWL</label>
+                <select id="swl" name="swl">
+                  <option value="">— Select SWL Range —</option>
+                  <option value="25-100">25–100 MT</option>
+                  <option value="100-200">100–200 MT</option>
+                  <option value="200-400">200–400 MT</option>
+                  <option value="400-700">400–700 MT</option>
+                  <option value="not-sure">Not Sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Classification Society</label>
+              <div class="checkbox-grid">
+                {company.certifications.map(cert => (
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="classification[]" value={cert} />
+                    <span class="checkbox-box" aria-hidden="true"></span>
+                    {cert}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  min="1"
+                  placeholder="e.g. 2"
+                />
+              </div>
+              <div class="form-group form-group-spacer"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Describe your project — vessel name, yard, delivery port, special requirements…"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">
+              Send Inquiry
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- RIGHT: CONTACT INFO -->
+        <div class="info-col">
+          <h2 class="col-heading">Contact Information</h2>
+
+          <div class="contact-details">
+
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Email</span>
+                <a href={`mailto:${company.email}`} class="contact-value">{company.email}</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.06 6.06l.95-.93a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Phone</span>
+                <a href={`tel:${company.phone.replace(/\s/g,'')}`} class="contact-value">{company.phone}</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon contact-icon-wa" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">WhatsApp</span>
+                <a
+                  href={`https://wa.me/${company.whatsapp}`}
+                  class="contact-value"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >{company.phone}</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Address</span>
+                <span class="contact-value">{company.address.full}</span>
+              </div>
+            </div>
+
+            <div class="response-notice">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              We respond within {company.tradeTerms.responseTime} on business days
+            </div>
+          </div>
+
+          <!-- Trade Terms -->
+          <div class="trade-terms">
+            <h3>Trade Terms</h3>
+            <div class="trade-grid">
+              <div class="trade-item">
+                <span class="trade-label">Payment</span>
+                <span class="trade-value">{company.tradeTerms.payment.join(' · ')}</span>
+              </div>
+              <div class="trade-item">
+                <span class="trade-label">Currency</span>
+                <span class="trade-value">{company.tradeTerms.currency.join(' · ')}</span>
+              </div>
+              <div class="trade-item">
+                <span class="trade-label">Incoterms</span>
+                <span class="trade-value">{company.tradeTerms.incoterms.join(' · ')}</span>
+              </div>
+              <div class="trade-item">
+                <span class="trade-label">Lead Time</span>
+                <span class="trade-value">{company.tradeTerms.leadTime}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /info-col -->
+
+      </div>
+      <!-- /contact-layout -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       MAP PLACEHOLDER
+  ══════════════════════════════════════════ -->
+  <div class="map-placeholder" role="img" aria-label="Office location: Wan Chai, Hong Kong">
+    <div class="map-inner">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>Map — Wan Chai, Hong Kong</span>
+      <span class="map-address">{company.address.full}</span>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+
+  /* ---- Page Header ---- */
+  .page-header {
+    background: var(--sj-primary);
+    color: var(--sj-white);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+  .page-header h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--sj-white);
+    margin-bottom: var(--space-md);
+  }
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: rgba(255,255,255,0.8);
+    max-width: 560px;
+  }
+
+  /* ---- Contact Section ---- */
+  .contact-section {
+    padding: var(--space-4xl) 0;
+    background: var(--sj-white);
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .col-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--sj-primary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* ---- Form ---- */
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-row {
+    display: grid;
+    gap: var(--space-lg);
+  }
+  .form-row-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .form-group-spacer {
+    /* empty grid cell to keep 2-col alignment */
+  }
+
+  label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sj-primary);
+  }
+  .required {
+    color: var(--sj-accent);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--sj-dark);
+    background: var(--sj-white);
+    border: 1.5px solid var(--sj-border);
+    border-radius: var(--radius);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #A0A8B0;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--sj-accent);
+    box-shadow: 0 0 0 3px rgba(232,121,43,0.12);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  /* Checkboxes */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--sj-dark);
+    cursor: pointer;
+    padding: var(--space-sm) var(--space-md);
+    border: 1.5px solid var(--sj-border);
+    border-radius: var(--radius);
+    transition: border-color var(--transition), background var(--transition);
+    user-select: none;
+  }
+  .checkbox-label:hover {
+    border-color: var(--sj-accent);
+    background: rgba(232,121,43,0.04);
+  }
+  .checkbox-label input[type="checkbox"] {
+    width: auto;
+    display: none; /* hidden, styled via .checkbox-box */
+  }
+  .checkbox-box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--sj-border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .checkbox-label input[type="checkbox"]:checked ~ .checkbox-box {
+    background: var(--sj-accent);
+    border-color: var(--sj-accent);
+  }
+  .checkbox-label input[type="checkbox"]:checked ~ .checkbox-box::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+
+  /* Submit */
+  .btn-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem var(--space-xl);
+    font-size: var(--text-base);
+    gap: var(--space-sm);
+  }
+
+  /* ---- Contact Info ---- */
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--sj-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--sj-border);
+  }
+  .contact-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: var(--sj-white);
+    border: 1px solid var(--sj-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sj-primary);
+    flex-shrink: 0;
+  }
+  .contact-icon-wa {
+    color: #25D366;
+  }
+
+  .contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .contact-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--sj-steel);
+  }
+  .contact-value {
+    font-size: var(--text-base);
+    color: var(--sj-primary);
+    font-weight: 500;
+    word-break: break-word;
+  }
+  a.contact-value {
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  a.contact-value:hover {
+    color: var(--sj-accent);
+  }
+
+  .response-notice {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: rgba(40,167,69,0.08);
+    border: 1px solid rgba(40,167,69,0.2);
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    color: var(--sj-success);
+    font-weight: 500;
+  }
+  .response-notice svg {
+    flex-shrink: 0;
+    color: var(--sj-success);
+  }
+
+  /* Trade Terms */
+  .trade-terms {
+    background: var(--sj-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    color: var(--sj-white);
+  }
+  .trade-terms h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--sj-white);
+    margin-bottom: var(--space-lg);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .trade-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .trade-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .trade-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+  }
+  .trade-value {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sj-white);
+    font-family: var(--font-mono);
+    letter-spacing: 0.03em;
+  }
+
+  /* ---- Map Placeholder ---- */
+  .map-placeholder {
+    height: 220px;
+    background: var(--sj-light);
+    border-top: 1px solid var(--sj-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .map-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--sj-steel);
+  }
+  .map-inner span:first-of-type {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--sj-primary);
+  }
+  .map-address {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+    .form-row-2 {
+      grid-template-columns: 1fr;
+    }
+    .checkbox-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .page-header {
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
+    .page-header h1 {
+      font-size: var(--text-3xl);
+    }
+    .checkbox-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

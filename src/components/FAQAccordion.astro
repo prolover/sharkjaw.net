@@ -1,0 +1,83 @@
+---
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  title?: string;
+}
+
+const { items, title = 'Frequently Asked Questions' } = Astro.props;
+
+if (!items.length) return;
+
+// Schema handled by SchemaOrg component — this is purely visual
+---
+
+<section class="faq-section section" id="faq">
+  <div class="container container-narrow">
+    <h2 class="faq-title">{title}</h2>
+    <div class="faq-list">
+      {items.map((item, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-title {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .faq-item {
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-lg);
+    color: var(--sj-primary);
+    list-style: none;
+    transition: background var(--transition);
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question:hover {
+    background: var(--sj-light);
+  }
+  .faq-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition);
+    color: var(--sj-steel);
+  }
+  details[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--sj-steel);
+    line-height: 1.7;
+  }
+</style>

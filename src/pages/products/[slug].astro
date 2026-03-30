@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from 'astro:content';
+import ProductLayout from '../../layouts/ProductLayout.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ProductLayout frontmatter={entry.data} slug={entry.id}>
+  <Content />
+</ProductLayout>

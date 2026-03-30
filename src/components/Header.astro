@@ -1,0 +1,184 @@
+---
+import { mainNav } from '../data/navigation';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="SharkJaw Home">
+      <span class="logo-text">SHARK<strong>JAW</strong></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        {mainNav.map(item => (
+          <li class:list={['nav-item', { 'has-children': item.children }]}>
+            <a
+              href={item.href}
+              class:list={['nav-link', { active: currentPath.startsWith(item.href) }]}
+            >
+              {item.label}
+              {item.children && (
+                <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+              )}
+            </a>
+            {item.children && (
+              <ul class="dropdown">
+                {item.children.map(child => (
+                  <li>
+                    <a href={child.href} class:list={['dropdown-link', { active: currentPath === child.href }]}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="/contact/" class="btn btn-primary header-cta">Get a Quote</a>
+
+    <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--sj-primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    text-decoration: none;
+    color: var(--sj-white);
+  }
+  .logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .logo-text strong {
+    color: var(--sj-accent);
+    font-weight: 700;
+  }
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 0;
+  }
+  .nav-item {
+    position: relative;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0 1rem;
+    height: 64px;
+    color: rgba(255,255,255,0.85);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--sj-accent);
+  }
+  .nav-chevron {
+    transition: transform var(--transition);
+  }
+  .nav-item:hover .nav-chevron {
+    transform: rotate(180deg);
+  }
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    background: var(--sj-white);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+    padding: 0.5rem 0;
+    z-index: 101;
+  }
+  .nav-item:hover .dropdown {
+    display: block;
+  }
+  .dropdown-link {
+    display: block;
+    padding: 0.6rem 1.25rem;
+    color: var(--sj-dark);
+    font-size: var(--text-sm);
+    transition: background var(--transition), color var(--transition);
+  }
+  .dropdown-link:hover,
+  .dropdown-link.active {
+    background: var(--sj-light);
+    color: var(--sj-accent);
+  }
+  .header-cta {
+    font-size: var(--text-xs);
+    padding: 0.5rem 1.25rem;
+  }
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .mobile-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--sj-white);
+    border-radius: 1px;
+    transition: all var(--transition);
+  }
+
+  @media (max-width: 960px) {
+    .main-nav { display: none; }
+    .header-cta { display: none; }
+    .mobile-toggle { display: flex; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.mobile-toggle');
+  const nav = document.querySelector('.main-nav');
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav?.classList.toggle('mobile-open');
+  });
+</script>

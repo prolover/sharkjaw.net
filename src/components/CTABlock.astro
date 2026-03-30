@@ -1,0 +1,78 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  variant?: 'dark' | 'light' | 'accent';
+}
+
+const {
+  title = 'Ready to Discuss Your Project?',
+  subtitle = 'Tell us your vessel type, required SWL, and classification society. We respond within 24 hours.',
+  buttonText = 'Get a Quote',
+  buttonHref = '/contact/',
+  variant = 'dark',
+} = Astro.props;
+---
+
+<section class:list={['cta-block', `cta-block-${variant}`]}>
+  <div class="container cta-inner">
+    <div class="cta-content">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </div>
+    <a href={buttonHref} class:list={['btn', variant === 'dark' ? 'btn-primary' : 'btn-ghost', 'cta-btn']}>
+      {buttonText}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .cta-block {
+    padding: var(--space-3xl) 0;
+  }
+  .cta-block-dark {
+    background: var(--sj-dark);
+    color: var(--sj-white);
+  }
+  .cta-block-dark h2 { color: var(--sj-white); }
+  .cta-block-dark p { color: rgba(255,255,255,0.75); }
+
+  .cta-block-light {
+    background: var(--sj-light);
+  }
+
+  .cta-block-accent {
+    background: var(--sj-accent);
+    color: var(--sj-white);
+  }
+  .cta-block-accent h2 { color: var(--sj-white); }
+  .cta-block-accent p { color: rgba(255,255,255,0.9); }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+  .cta-content h2 {
+    margin-bottom: var(--space-sm);
+  }
+  .cta-content p {
+    font-size: var(--text-lg);
+    max-width: 600px;
+  }
+  .cta-btn {
+    flex-shrink: 0;
+    font-size: var(--text-base);
+    padding: 0.875rem 2rem;
+  }
+  @media (max-width: 768px) {
+    .cta-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

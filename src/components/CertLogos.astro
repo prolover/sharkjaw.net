@@ -1,0 +1,73 @@
+---
+import { company } from '../data/company';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  showLabel?: boolean;
+}
+
+const { size = 'md', showLabel = true } = Astro.props;
+---
+
+<div class:list={['cert-logos', `cert-logos-${size}`]}>
+  {company.certifications.map(cert => (
+    <div class="cert-logo-item">
+      <div class="cert-logo-badge">{cert}</div>
+    </div>
+  ))}
+</div>
+{showLabel && (
+  <p class="cert-logos-label">
+    Type approval available for all major classification societies
+  </p>
+)}
+
+<style>
+  .cert-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .cert-logo-item {
+    text-align: center;
+  }
+  .cert-logo-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: var(--sj-white);
+    color: var(--sj-primary);
+    border: 2px solid var(--sj-primary);
+    border-radius: var(--radius);
+  }
+  /* Sizes */
+  .cert-logos-sm .cert-logo-badge {
+    width: 48px; height: 48px; font-size: 0.65rem;
+  }
+  .cert-logos-md .cert-logo-badge {
+    width: 64px; height: 64px; font-size: 0.75rem;
+  }
+  .cert-logos-lg .cert-logo-badge {
+    width: 80px; height: 80px; font-size: 0.85rem;
+  }
+  .cert-logos-label {
+    text-align: center;
+    color: var(--sj-steel);
+    font-size: var(--text-sm);
+    margin-top: var(--space-md);
+  }
+
+  /* Dark section variant */
+  :global(.section-dark) .cert-logo-badge {
+    background: transparent;
+    color: var(--sj-white);
+    border-color: rgba(255,255,255,0.4);
+  }
+  :global(.section-dark) .cert-logos-label {
+    color: rgba(255,255,255,0.7);
+  }
+</style>

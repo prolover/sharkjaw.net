@@ -1,0 +1,143 @@
+---
+import { company } from '../data/company';
+
+interface Props {
+  type?: 'WebPage' | 'Product' | 'Article' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+  title?: string;
+  description?: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: boolean;
+  faq?: { q: string; a: string }[];
+  product?: {
+    name: string;
+    description: string;
+    image?: string[];
+    swlRange?: string;
+    certifications?: string[];
+  };
+}
+
+const {
+  type = 'WebPage',
+  title,
+  description,
+  image,
+  datePublished,
+  dateModified,
+  author = false,
+  faq,
+  product,
+} = Astro.props;
+
+const siteUrl = Astro.site?.href || company.url;
+
+// Organization (global)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: company.name,
+  legalName: company.legalName,
+  url: company.url,
+  logo: `${siteUrl}images/sharkjaw-logo.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: company.phone,
+    email: company.email,
+    contactType: 'sales',
+    availableLanguage: ['English', 'Chinese'],
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: company.address.street,
+    addressLocality: company.address.city,
+    addressRegion: company.address.region,
+    addressCountry: company.address.country,
+  },
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'shark jaw systems',
+    'towing pin systems',
+    'marine deck machinery',
+    'AHTS equipment',
+    'tugboat towing equipment',
+  ],
+};
+
+// WebSite (global)
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: `${company.name} — Shark Jaw & Towing Pin Systems`,
+  url: company.url,
+};
+
+// Person (author)
+const authorSchema = author ? {
+  '@type': 'Person',
+  name: company.founder.name,
+  jobTitle: company.founder.title,
+  worksFor: { '@type': 'Organization', name: company.name },
+  sameAs: company.founder.linkedin,
+} : null;
+
+// Product schema
+const productSchema = product ? {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: product.description,
+  brand: { '@type': 'Brand', name: company.name },
+  manufacturer: { '@type': 'Organization', name: company.legalName },
+  ...(product.image?.length ? { image: product.image } : {}),
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Organization', name: company.name },
+  },
+  ...(product.swlRange ? {
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'SWL Range', value: product.swlRange },
+      ...(product.certifications?.length ? [
+        { '@type': 'PropertyValue', name: 'Classification', value: product.certifications.join(', ') },
+      ] : []),
+    ],
+  } : {}),
+} : null;
+
+// FAQ schema
+const faqSchema = faq?.length ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+} : null;
+
+// Page schema
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': type,
+  name: title,
+  description,
+  url: Astro.url.href,
+  ...(image ? { image } : {}),
+  ...(datePublished ? { datePublished } : {}),
+  ...(dateModified ? { dateModified } : {}),
+  ...(authorSchema ? { author: authorSchema } : {}),
+  publisher: { '@type': 'Organization', name: company.name },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+{title && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
+{productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
