@@ -1,0 +1,412 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { company } from '../data/company';
+
+const societies = [
+  {
+    abbr: 'ABS',
+    name: 'American Bureau of Shipping',
+    description: 'U.S.-based classification society covering commercial vessels, offshore platforms, and maritime assets worldwide.',
+  },
+  {
+    abbr: 'BV',
+    name: 'Bureau Veritas',
+    description: 'French classification and certification body with a global presence across marine, oil & gas, and construction sectors.',
+  },
+  {
+    abbr: 'CCS',
+    name: 'China Classification Society',
+    description: 'Chinese national classification society with extensive coverage of vessels built in Chinese shipyards.',
+  },
+  {
+    abbr: 'DNV',
+    name: 'Det Norske Veritas',
+    description: 'Norwegian classification society known for rigorous standards in offshore, tanker, and marine technology sectors.',
+  },
+  {
+    abbr: 'LR',
+    name: "Lloyd's Register",
+    description: "One of the oldest classification societies, headquartered in the UK, with strong presence in tanker and bulk carrier fleets.",
+  },
+  {
+    abbr: 'NK',
+    name: 'Nippon Kaiji Kyokai (ClassNK)',
+    description: 'Japanese classification society and one of the largest in the world by registered fleet tonnage.',
+  },
+  {
+    abbr: 'KR',
+    name: 'Korean Register',
+    description: 'Korean classification society providing technical standards and certification for vessels and offshore structures.',
+  },
+  {
+    abbr: 'RINA',
+    name: 'Registro Italiano Navale',
+    description: 'Italian classification society providing certification and technical services for marine and industrial sectors.',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Specify Classification Society',
+    body: 'Indicate your required classification society when submitting your inquiry. Include vessel name, IMO number (if applicable), and any existing class notation requirements.',
+  },
+  {
+    num: '02',
+    title: 'Design Review Coordination',
+    body: 'SharkJaw coordinates with the classification society for design approval. We submit drawings, material certificates, and load calculations on your behalf.',
+  },
+  {
+    num: '03',
+    title: 'Factory Inspection & Testing',
+    body: 'The society surveyor witnesses factory acceptance testing (FAT), hydraulic pressure testing, and functional testing at our manufacturing partner\'s facility.',
+  },
+  {
+    num: '04',
+    title: 'Certificate Issued with Equipment',
+    body: 'Upon successful inspection and testing, the classification society issues the type approval certificate. Delivered with the equipment as part of your documentation package.',
+  },
+];
+---
+
+<BaseLayout
+  title="Classification Society Certifications"
+  description="SharkJaw shark jaw and towing pin systems support type approval from ABS, BV, CCS, DNV, LR, NK, KR, and RINA classification societies."
+>
+
+  <!-- ══════════════════════════════════════════
+       BREADCRUMB
+  ══════════════════════════════════════════ -->
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Certifications' }]} />
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       1. PAGE HEADER
+  ══════════════════════════════════════════ -->
+  <section class="page-header">
+    <div class="container">
+      <p class="page-eyebrow">Type Approval &amp; Certification</p>
+      <h1>Classification Society Certifications</h1>
+      <p class="page-subtitle">
+        Every shark jaw and towing pin system we supply is available with type approval
+        from all {company.stats.classificationSocieties} major classification societies.
+        We manage the certification process end-to-end — from design review submission
+        to certificate delivery with your equipment.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       2. CERTIFICATION CARDS GRID
+  ══════════════════════════════════════════ -->
+  <section class="section section-white">
+    <div class="container">
+      <h2 class="section-heading-center">Supported Classification Societies</h2>
+      <div class="cert-grid">
+        {societies.map((s) => (
+          <div class="cert-card">
+            <div class="cert-abbr">{s.abbr}</div>
+            <div class="cert-name">{s.name}</div>
+            <p class="cert-desc">{s.description}</p>
+            <span class="cert-badge">Type Approval Available</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       3. CERTIFICATION PROCESS
+  ══════════════════════════════════════════ -->
+  <section class="section section-light">
+    <div class="container">
+      <h2 class="section-heading-center">How the Certification Process Works</h2>
+      <p class="section-intro">
+        We handle classification society coordination as a standard part of every order.
+        No additional project management required from your team.
+      </p>
+      <div class="process-grid">
+        {steps.map((step) => (
+          <div class="process-card">
+            <div class="process-num" aria-hidden="true">{step.num}</div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       4. STANDARDS WE FOLLOW
+  ══════════════════════════════════════════ -->
+  <section class="section section-white">
+    <div class="container container-narrow">
+      <h2>Standards We Follow</h2>
+      <p>
+        All SharkJaw equipment is designed and tested in accordance with applicable
+        international maritime standards. Our manufacturing partners are familiar with
+        the survey requirements of each major classification society.
+      </p>
+      <div class="standards-list">
+        <div class="standard-item">
+          <div class="standard-dot" aria-hidden="true"></div>
+          <div>
+            <strong>SOLAS (Safety of Life at Sea)</strong>
+            <p>Applicable IMO conventions governing deck equipment and safety systems on commercial vessels.</p>
+          </div>
+        </div>
+        <div class="standard-item">
+          <div class="standard-dot" aria-hidden="true"></div>
+          <div>
+            <strong>IMO MSC Guidelines</strong>
+            <p>Maritime Safety Committee guidelines for towing and mooring equipment, including load calculations and structural requirements.</p>
+          </div>
+        </div>
+        <div class="standard-item">
+          <div class="standard-dot" aria-hidden="true"></div>
+          <div>
+            <strong>Classification Society Rules</strong>
+            <p>Each society's specific Rules for Machinery and Equipment, including hydraulic system requirements and material grade specifications.</p>
+          </div>
+        </div>
+        <div class="standard-item">
+          <div class="standard-dot" aria-hidden="true"></div>
+          <div>
+            <strong>ISO Standards</strong>
+            <p>ISO 4413 (hydraulic fluid power), ISO 9001 (quality management), and relevant material standards for structural steel and alloy components.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       5. CTA
+  ══════════════════════════════════════════ -->
+  <CTABlock
+    title="Need Classification-Approved Equipment?"
+    subtitle="Tell us your classification society, vessel type, and SWL requirement. We handle the rest."
+  />
+
+</BaseLayout>
+
+<style>
+  /* ---- Page Header ---- */
+  .page-header {
+    background: var(--sj-dark);
+    color: var(--sj-white);
+    padding: var(--space-4xl) 0 var(--space-3xl);
+  }
+  .page-eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sj-accent);
+    margin-bottom: var(--space-md);
+  }
+  .page-header h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--sj-white);
+    margin-bottom: var(--space-lg);
+  }
+  .page-subtitle {
+    font-size: var(--text-xl);
+    line-height: 1.65;
+    color: rgba(255,255,255,0.8);
+    max-width: 720px;
+  }
+
+  /* ---- Sections ---- */
+  .section { padding: var(--space-4xl) 0; }
+  .section-white { background: var(--sj-white); }
+  .section-light  { background: var(--sj-light); }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+  .container-narrow { max-width: var(--container-narrow); }
+
+  .section-heading-center {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+  .section-intro {
+    text-align: center;
+    color: var(--sj-steel);
+    font-size: var(--text-lg);
+    max-width: 640px;
+    margin: calc(-1 * var(--space-xl)) auto var(--space-3xl);
+    line-height: 1.65;
+  }
+
+  /* ---- Certification Cards ---- */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+  .cert-card {
+    background: var(--sj-light);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: box-shadow var(--transition), border-color var(--transition);
+  }
+  .cert-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--sj-accent);
+  }
+  .cert-abbr {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--sj-primary);
+    line-height: 1;
+  }
+  .cert-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sj-dark);
+    line-height: 1.4;
+  }
+  .cert-desc {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+  }
+  .cert-badge {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    background: rgba(var(--sj-accent-rgb, 0,104,181), 0.1);
+    color: var(--sj-accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(var(--sj-accent-rgb, 0,104,181), 0.25);
+    width: fit-content;
+  }
+
+  /* ---- Process Grid ---- */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+  }
+  .process-card {
+    background: var(--sj-white);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-lg);
+  }
+  .process-num {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--sj-accent);
+    line-height: 1;
+    margin-bottom: var(--space-md);
+  }
+  .process-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .process-card p {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ---- Standards ---- */
+  .section-white .container-narrow h2 {
+    margin-bottom: var(--space-md);
+  }
+  .section-white .container-narrow > p {
+    color: var(--sj-steel);
+    line-height: 1.7;
+    margin-bottom: var(--space-2xl);
+  }
+  .standards-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .standard-item {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: flex-start;
+    padding: var(--space-lg);
+    background: var(--sj-light);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius);
+  }
+  .standard-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sj-accent);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+  }
+  .standard-item strong {
+    display: block;
+    font-size: var(--text-base);
+    color: var(--sj-primary);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+  .standard-item p {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1100px) {
+    .cert-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 900px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: var(--text-3xl); }
+    .cert-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .cert-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

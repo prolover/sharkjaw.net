@@ -1,0 +1,293 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { company } from '../data/company';
+
+const lastUpdated = '2026-03-30';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="SharkJaw privacy policy — how we collect, use, and protect your information."
+  noIndex={true}
+>
+
+  <!-- ══════════════════════════════════════════
+       BREADCRUMB
+  ══════════════════════════════════════════ -->
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       LEGAL PAGE CONTENT
+  ══════════════════════════════════════════ -->
+  <section class="legal-page">
+    <div class="container container-narrow">
+
+      <header class="legal-header">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+        <p class="legal-intro">
+          This Privacy Policy explains how {company.legalName} ("SharkJaw", "we", "us", or "our")
+          collects, uses, and protects information when you visit <strong>{company.url}</strong> or
+          contact us through our inquiry forms.
+        </p>
+      </header>
+
+      <div class="legal-body">
+
+        <section class="legal-section">
+          <h2>1. Information We Collect</h2>
+          <p>
+            We collect information you provide voluntarily when submitting an inquiry or
+            contacting us. This includes:
+          </p>
+          <ul>
+            <li><strong>Name</strong> — first and last name for correspondence</li>
+            <li><strong>Email address</strong> — for sending quotations and replies</li>
+            <li><strong>Company name</strong> — to understand your business context</li>
+            <li><strong>Phone number</strong> — optional, for urgent or technical follow-up</li>
+            <li><strong>Project details</strong> — vessel type, SWL requirements, classification society, and any notes you include in the inquiry form</li>
+          </ul>
+          <p>
+            We do not collect payment information through this website. All commercial transactions
+            are handled through separate invoice and banking channels.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>2. How We Use Your Information</h2>
+          <p>We use the information you provide to:</p>
+          <ul>
+            <li>Respond to your technical and commercial inquiries</li>
+            <li>Prepare and send quotations for the products you requested</li>
+            <li>Follow up on open inquiries or pending orders</li>
+            <li>Improve our website content and product documentation</li>
+          </ul>
+          <p>
+            We do not sell, rent, or share your personal information with third parties
+            for marketing purposes. We do not send unsolicited promotional emails.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>3. Cookies</h2>
+          <p>
+            This website uses a limited number of cookies necessary for basic functionality
+            and security:
+          </p>
+          <ul>
+            <li>
+              <strong>Cloudflare security cookies</strong> — set automatically by our CDN/WAF
+              provider to protect against malicious traffic. These are technically necessary
+              and cannot be disabled without affecting site performance.
+            </li>
+            <li>
+              <strong>Analytics cookies</strong> — we plan to implement Google Analytics (GA4)
+              to understand aggregate traffic patterns. No personally identifiable information
+              is collected through analytics.
+            </li>
+          </ul>
+          <p>
+            You can control cookie settings through your browser preferences. Blocking
+            technically necessary cookies may affect site functionality.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>4. Third-Party Services</h2>
+          <p>We use the following third-party services that may process data on our behalf:</p>
+          <ul>
+            <li>
+              <strong>Cloudflare</strong> — CDN, DDoS protection, and WAF services.
+              Cloudflare processes request data in accordance with their
+              <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">privacy policy</a>.
+            </li>
+            <li>
+              <strong>Google Analytics (planned)</strong> — aggregate website traffic analytics.
+              Data is anonymized and no personally identifiable information is shared.
+            </li>
+          </ul>
+          <p>
+            We do not currently use marketing automation, CRM platforms, or advertising
+            tracking services that process personal data.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>5. Data Retention</h2>
+          <p>
+            We retain inquiry and correspondence records for up to 5 years to support
+            ongoing commercial relationships, warranty claims, and order history.
+            If you request deletion of your information, we will remove it from our
+            active records unless we are required to retain it for legal or contractual reasons.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>6. Your Rights</h2>
+          <p>Depending on your jurisdiction, you may have the right to:</p>
+          <ul>
+            <li>Request access to the personal data we hold about you</li>
+            <li>Request correction of inaccurate information</li>
+            <li>Request deletion of your data, subject to legal obligations</li>
+            <li>Withdraw consent for data processing where consent is the legal basis</li>
+          </ul>
+          <p>
+            To exercise any of these rights, contact us at <a href={`mailto:${company.email}`}>{company.email}</a>.
+            We will respond within 30 days.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>7. Contact Us</h2>
+          <p>
+            For questions about this Privacy Policy or your personal data, please contact:
+          </p>
+          <address class="legal-address">
+            <strong>{company.legalName}</strong><br />
+            {company.address.full}<br />
+            Email: <a href={`mailto:${company.email}`}>{company.email}</a>
+          </address>
+        </section>
+
+        <section class="legal-section">
+          <h2>8. Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time. Changes will be posted
+            on this page with an updated "Last updated" date. We encourage you to review
+            this page periodically. Continued use of the website after changes constitutes
+            acceptance of the updated policy.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background: var(--sj-white);
+    padding: var(--space-4xl) 0 var(--space-5xl, var(--space-4xl));
+  }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+  .container-narrow {
+    max-width: var(--container-narrow);
+  }
+
+  /* ---- Header ---- */
+  .legal-header {
+    margin-bottom: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--sj-border);
+  }
+  .legal-header h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--sj-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .last-updated {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-lg);
+  }
+  .legal-intro {
+    font-size: var(--text-lg);
+    color: var(--sj-steel);
+    line-height: 1.7;
+  }
+
+  /* ---- Body ---- */
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+
+  .legal-section h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--sj-primary);
+    margin-bottom: var(--space-md);
+  }
+  .legal-section p {
+    color: var(--sj-dark);
+    line-height: 1.75;
+    margin-bottom: var(--space-md);
+  }
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+  .legal-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+    padding: 0;
+  }
+  .legal-section ul li {
+    display: flex;
+    gap: var(--space-sm);
+    color: var(--sj-dark);
+    line-height: 1.65;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--sj-border);
+    font-size: var(--text-sm);
+  }
+  .legal-section ul li:last-child {
+    border-bottom: none;
+  }
+  .legal-section ul li::before {
+    content: '–';
+    color: var(--sj-accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .legal-section a {
+    color: var(--sj-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .legal-section a:hover {
+    opacity: 0.8;
+  }
+
+  /* ---- Address ---- */
+  .legal-address {
+    font-style: normal;
+    font-size: var(--text-sm);
+    color: var(--sj-dark);
+    line-height: 2;
+    background: var(--sj-light);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius);
+    padding: var(--space-lg) var(--space-xl);
+    display: block;
+    margin-top: var(--space-md);
+  }
+  .legal-address a {
+    color: var(--sj-accent);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 600px) {
+    .legal-header h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

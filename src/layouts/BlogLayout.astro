@@ -1,0 +1,481 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABlock from '../components/CTABlock.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { company } from '../data/company';
+
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    publishDate: Date;
+    updatedDate?: Date;
+    heroImage?: string;
+    category?: string;
+    tags?: string[];
+    relatedProducts?: string[];
+    readingTime?: number;
+    faq?: FAQItem[];
+  };
+  slug: string;
+}
+
+const { frontmatter, slug } = Astro.props;
+
+const {
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  heroImage,
+  category,
+  tags = [],
+  relatedProducts = [],
+  readingTime,
+  faq = [],
+} = frontmatter;
+
+const publishDateFormatted = new Intl.DateTimeFormat('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(publishDate);
+
+const updatedDateFormatted = updatedDate
+  ? new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }).format(updatedDate)
+  : null;
+
+const breadcrumbItems = [
+  { label: 'Blog', href: '/blog/' },
+  { label: title },
+];
+
+const datePublishedISO = publishDate.toISOString();
+const dateModifiedISO = updatedDate ? updatedDate.toISOString() : datePublishedISO;
+---
+
+<BaseLayout title={title} description={description} image={heroImage} type="Article">
+  <!-- Article Schema (augments BaseLayout's org + site schema) -->
+  <SchemaOrg
+    type="Article"
+    title={title}
+    description={description}
+    image={heroImage ? new URL(heroImage, Astro.site).href : undefined}
+    datePublished={datePublishedISO}
+    dateModified={dateModifiedISO}
+    author={true}
+    faq={faq.length ? faq : undefined}
+  />
+
+  <div class="blog-page">
+    <!-- Breadcrumb -->
+    <div class="container">
+      <Breadcrumb items={breadcrumbItems} />
+    </div>
+
+    <!-- Article Header -->
+    <header class="blog-header section-dark">
+      <div class="container blog-header-inner">
+        {category && (
+          <span class="category-pill">{category}</span>
+        )}
+        <h1 class="blog-title">{title}</h1>
+        <p class="blog-desc">{description}</p>
+
+        <div class="blog-meta">
+          <!-- Author -->
+          <div class="author-bio">
+            <div class="author-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <div class="author-info">
+              <span class="author-name">
+                By{' '}
+                <a
+                  href={company.founder.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="author-link"
+                >
+                  {company.founder.name}
+                </a>
+                ,{' '}
+                <span class="author-title">Marine Equipment Specialist</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="meta-divider" aria-hidden="true"></div>
+
+          <!-- Date -->
+          <div class="meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <time datetime={datePublishedISO}>{publishDateFormatted}</time>
+            {updatedDateFormatted && (
+              <span class="updated-note">(Updated {updatedDateFormatted})</span>
+            )}
+          </div>
+
+          {readingTime && (
+            <>
+              <div class="meta-divider" aria-hidden="true"></div>
+              <div class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                <span>{readingTime} min read</span>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Image -->
+    {heroImage ? (
+      <div class="blog-hero-image container">
+        <img src={heroImage} alt={title} class="hero-img" />
+      </div>
+    ) : (
+      <div class="blog-hero-placeholder container">
+        <div class="hero-placeholder-inner">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="9" cy="9" r="2"/>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+        </div>
+      </div>
+    )}
+
+    <!-- Article Body -->
+    <article class="blog-body">
+      <div class="container container-narrow prose">
+        <slot />
+      </div>
+    </article>
+
+    <!-- FAQ -->
+    {faq.length > 0 && (
+      <FAQAccordion items={faq} title={`${title} — FAQ`} />
+    )}
+
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <div class="blog-tags">
+        <div class="container container-narrow">
+          <div class="tags-inner">
+            <span class="tags-label">Tagged:</span>
+            <div class="tags-list">
+              {tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- CTA -->
+    <CTABlock
+      title="Have a Question About Your Application?"
+      subtitle="Describe your vessel type and towing requirements — our team will recommend the right shark jaw system within 24 hours."
+      buttonText="Get Technical Advice"
+      buttonHref="/contact/"
+      variant="dark"
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Header ──────────────────────────────────────── */
+  .blog-header {
+    background: var(--sj-dark);
+    color: var(--sj-white);
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .blog-header-inner {
+    max-width: 800px;
+  }
+  .category-pill {
+    display: inline-block;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(232,121,43,0.2);
+    color: #f5a96a;
+    border: 1px solid rgba(232,121,43,0.4);
+    margin-bottom: var(--space-md);
+  }
+  .blog-title {
+    color: var(--sj-white);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-md);
+  }
+  .blog-desc {
+    color: rgba(255,255,255,0.75);
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+    max-width: 680px;
+  }
+
+  /* Meta row */
+  .blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .meta-divider {
+    width: 1px;
+    height: 1rem;
+    background: rgba(255,255,255,0.2);
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.6);
+  }
+  .meta-item svg {
+    color: rgba(255,255,255,0.4);
+  }
+  .updated-note {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+  }
+
+  /* Author */
+  .author-bio {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .author-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.7);
+    flex-shrink: 0;
+  }
+  .author-info {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.7);
+  }
+  .author-name {
+    display: inline;
+  }
+  .author-link {
+    color: var(--sj-accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity var(--transition);
+  }
+  .author-link:hover {
+    opacity: 0.8;
+  }
+  .author-title {
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── Hero Image ──────────────────────────────────── */
+  .blog-hero-image {
+    margin-top: calc(-1 * var(--space-xl));
+    margin-bottom: var(--space-2xl);
+  }
+  .hero-img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  .blog-hero-placeholder {
+    margin-bottom: var(--space-2xl);
+  }
+  .hero-placeholder-inner {
+    max-width: 800px;
+    height: 240px;
+    background: var(--sj-light);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--sj-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sj-steel);
+  }
+
+  /* ── Article Body Prose ─────────────────────────── */
+  .blog-body {
+    padding: var(--space-2xl) 0;
+  }
+
+  .blog-body :global(.prose h2) {
+    font-size: var(--text-2xl);
+    color: var(--sj-primary);
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--sj-border);
+  }
+  .blog-body :global(.prose h3) {
+    font-size: var(--text-xl);
+    color: var(--sj-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-sm);
+  }
+  .blog-body :global(.prose p) {
+    color: var(--sj-steel);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-base);
+  }
+  .blog-body :global(.prose ul),
+  .blog-body :global(.prose ol) {
+    padding-left: 1.75rem;
+    color: var(--sj-steel);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+  .blog-body :global(.prose li) {
+    margin-bottom: 0.4rem;
+  }
+  .blog-body :global(.prose blockquote) {
+    border-left: 4px solid var(--sj-accent);
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--space-md) var(--space-lg);
+    background: rgba(27,58,92,0.04);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: var(--space-lg);
+  }
+  .blog-body :global(.prose blockquote p) {
+    margin-bottom: 0;
+    font-style: italic;
+    color: var(--sj-primary);
+  }
+  .blog-body :global(.prose table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-xl);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--sj-border);
+  }
+  .blog-body :global(.prose thead) {
+    background: var(--sj-primary);
+    color: var(--sj-white);
+  }
+  .blog-body :global(.prose th) {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .blog-body :global(.prose td) {
+    padding: var(--space-sm) var(--space-md);
+    color: var(--sj-steel);
+    border-bottom: 1px solid var(--sj-border);
+  }
+  .blog-body :global(.prose tr:last-child td) {
+    border-bottom: none;
+  }
+  .blog-body :global(.prose tr:nth-child(even)) {
+    background: var(--sj-light);
+  }
+  .blog-body :global(.prose code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: rgba(27,58,92,0.06);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius-sm, 4px);
+    padding: 0.1em 0.4em;
+    color: var(--sj-primary);
+  }
+  .blog-body :global(.prose strong) {
+    color: var(--sj-primary);
+    font-weight: 700;
+  }
+  .blog-body :global(.prose a) {
+    color: var(--sj-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: opacity var(--transition);
+  }
+  .blog-body :global(.prose a:hover) {
+    opacity: 0.8;
+  }
+
+  /* ── Tags ────────────────────────────────────────── */
+  .blog-tags {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--sj-border);
+  }
+  .tags-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .tags-label {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    font-weight: 600;
+  }
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .tag {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    background: var(--sj-light);
+    color: var(--sj-steel);
+    border: 1px solid var(--sj-border);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .tag:hover {
+    border-color: var(--sj-primary);
+    color: var(--sj-primary);
+  }
+</style>

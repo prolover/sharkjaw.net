@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { company } from '../data/company';
+
+const usefulLinks = [
+  { label: 'Shark Jaw Systems', href: '/products/shark-jaw/', desc: 'SWL 25–700 MT, all class societies' },
+  { label: 'Towing Pin Systems', href: '/products/towing-pin/', desc: 'Fixed and hinged configurations' },
+  { label: 'Certifications', href: '/certifications/', desc: 'ABS, BV, CCS, DNV, LR, NK, KR, RINA' },
+  { label: 'About SharkJaw', href: '/about/', desc: '15+ years of maritime equipment expertise' },
+];
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist."
+  noIndex={true}
+>
+
+  <div class="error-page">
+    <div class="container">
+
+      <!-- ── Error Number ── -->
+      <div class="error-number" aria-hidden="true">404</div>
+
+      <!-- ── Message ── -->
+      <h1>Page Not Found</h1>
+      <p class="error-desc">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      <!-- ── Buttons ── -->
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Go Home
+        </a>
+        <a href="/contact/" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Contact Us
+        </a>
+      </div>
+
+      <!-- ── Divider ── -->
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- ── Useful Links ── -->
+      <p class="useful-label">You might be looking for:</p>
+      <div class="useful-links">
+        {usefulLinks.map((link) => (
+          <a href={link.href} class="useful-link">
+            <span class="useful-link-label">{link.label}</span>
+            <span class="useful-link-desc">{link.desc}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="useful-arrow" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .error-page {
+    background: var(--sj-white);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: var(--space-4xl) 0;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    text-align: center;
+  }
+
+  /* ---- 404 Number ---- */
+  .error-number {
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 20vw, 10rem);
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--sj-border);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-lg);
+    user-select: none;
+  }
+
+  /* ---- Heading ---- */
+  h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--sj-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .error-desc {
+    font-size: var(--text-lg);
+    color: var(--sj-steel);
+    line-height: 1.65;
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* ---- Buttons ---- */
+  .error-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-base);
+    text-decoration: none;
+    transition: opacity var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--sj-accent);
+    color: var(--sj-white);
+    border: 2px solid var(--sj-accent);
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: var(--shadow-md);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--sj-primary);
+    border: 2px solid var(--sj-border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--sj-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ---- Divider ---- */
+  .divider {
+    height: 1px;
+    background: var(--sj-border);
+    margin: var(--space-3xl) 0;
+  }
+
+  /* ---- Useful Links ---- */
+  .useful-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sj-steel);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-lg);
+  }
+  .useful-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: left;
+  }
+  .useful-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--sj-light);
+    border: 1px solid var(--sj-border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .useful-link:hover {
+    border-color: var(--sj-accent);
+    box-shadow: var(--shadow-sm);
+  }
+  .useful-link-label {
+    font-weight: 600;
+    color: var(--sj-primary);
+    font-size: var(--text-base);
+    min-width: 180px;
+  }
+  .useful-link-desc {
+    font-size: var(--text-sm);
+    color: var(--sj-steel);
+    flex: 1;
+    line-height: 1.4;
+  }
+  .useful-arrow {
+    flex-shrink: 0;
+    color: var(--sj-accent);
+    transition: transform var(--transition);
+  }
+  .useful-link:hover .useful-arrow {
+    transform: translateX(3px);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 600px) {
+    .error-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btn {
+      justify-content: center;
+    }
+    .useful-link-desc {
+      display: none;
+    }
+    .useful-link-label {
+      min-width: unset;
+    }
+  }
+</style>
