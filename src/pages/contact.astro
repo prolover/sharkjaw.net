@@ -3,17 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import { company } from '../data/company';
+
+const url = Astro.url;
+const sent = url.searchParams.get('sent') === '1';
+const error = url.searchParams.get('error');
+const errorCopy: Record<string, string> = {
+  invalid: 'Please check your name and email address and try again.',
+  bad_request: "We couldn't read your submission. Please try again.",
+  server: 'Our mail service is misconfigured. Please email sales@sharkjaw.net directly.',
+  send_failed: 'The inquiry could not be sent. Please email sales@sharkjaw.net directly.',
+  network: 'Network error while sending. Please try again or email sales@sharkjaw.net.',
+};
 ---
 
 <BaseLayout
   title="Contact & Get a Quote"
-  description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}, Hong Kong.`}
+  description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}.`}
   type="ContactPage"
 >
   <SchemaOrg
     type="ContactPage"
     title="Contact & Get a Quote"
-    description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}, Hong Kong.`}
+    description={`Request a quote for shark jaw and towing pin systems. Contact SharkJaw — ${company.email}, ${company.phone}.`}
   />
 
   <!-- ══════════════════════════════════════════
@@ -47,7 +58,27 @@ import { company } from '../data/company';
         <div class="form-col">
           <h2 class="col-heading">Send Your Inquiry</h2>
 
+          {sent && (
+            <div class="form-banner form-banner-success" role="status">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <div>
+                <strong>Thanks — we got your inquiry.</strong>
+                <span>Our team replies within {company.tradeTerms.responseTime} on business days. A copy was sent to your email on record.</span>
+              </div>
+            </div>
+          )}
+          {error && errorCopy[error] && (
+            <div class="form-banner form-banner-error" role="alert">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              <div>
+                <strong>Submission not delivered.</strong>
+                <span>{errorCopy[error]}</span>
+              </div>
+            </div>
+          )}
+
           <form action="/api/quote" method="POST" class="quote-form" novalidate>
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
 
             <div class="form-row form-row-2">
               <div class="form-group">
@@ -273,13 +304,13 @@ import { company } from '../data/company';
   <!-- ══════════════════════════════════════════
        MAP PLACEHOLDER
   ══════════════════════════════════════════ -->
-  <div class="map-placeholder" role="img" aria-label="Office location: Wan Chai, Hong Kong">
+  <div class="map-placeholder" role="img" aria-label={`Office location: ${company.address.city}, ${company.address.region}`}>
     <div class="map-inner">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
         <circle cx="12" cy="10" r="3"/>
       </svg>
-      <span>Map — Wan Chai, Hong Kong</span>
+      <span>Map — {company.address.city}, {company.address.region}</span>
       <span class="map-address">{company.address.full}</span>
     </div>
   </div>
@@ -331,6 +362,37 @@ import { company } from '../data/company';
     font-weight: 700;
     color: var(--sj-primary);
     margin-bottom: var(--space-xl);
+  }
+
+  /* ---- Submission banners ---- */
+  .form-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-lg);
+    border: 1px solid;
+    line-height: 1.5;
+  }
+  .form-banner strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .form-banner svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .form-banner-success {
+    background: #ecfdf5;
+    border-color: #6ee7b7;
+    color: #065f46;
+  }
+  .form-banner-error {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #991b1b;
   }
 
   /* ---- Form ---- */

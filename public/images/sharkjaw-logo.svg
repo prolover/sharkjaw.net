@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" role="img" aria-label="SharkJaw">
+  <title>SharkJaw</title>
+  <style>
+    .t { font-family: 'Barlow Semi Condensed', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 80px; letter-spacing: -2px; }
+  </style>
+  <text x="0" y="72" class="t" fill="#f5c842">SHARK</text>
+  <text x="232" y="72" class="t" fill="#0a1929">JAW</text>
+</svg>

@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
+import Analytics from '../components/Analytics.astro';
+import AnalyticsBody from '../components/AnalyticsBody.astro';
 import { company } from '../data/company';
 import '../styles/global.css';
 
@@ -25,7 +27,7 @@ const {
 } = Astro.props;
 
 const fullTitle = title === 'Home'
-  ? `${company.name} — Shark Jaw & Towing Pin Systems | Hong Kong`
+  ? `${company.name} — Shark Jaw & Towing Pin Systems`
   : `${title} | ${company.name}`;
 const canonicalUrl = Astro.url.href;
 const ogImage = new URL(image, Astro.site).href;
@@ -64,8 +66,10 @@ const ogImage = new URL(image, Astro.site).href;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <SchemaOrg type={type} title={title} description={description} image={ogImage} />
+  <Analytics />
 </head>
 <body>
+  <AnalyticsBody />
   <TrustBar />
   <Header currentPath={Astro.url.pathname} />
 

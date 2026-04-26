@@ -1,0 +1,16 @@
+---
+/**
+ * GTM <noscript> iframe fallback. Per Google docs this must be placed
+ * immediately after the opening <body> tag for browsers with JS disabled.
+ */
+import { analytics } from '../data/analytics';
+
+const { gtmId } = analytics;
+---
+
+{gtmId && (
+  <noscript>
+    <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+)}

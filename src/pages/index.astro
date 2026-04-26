@@ -18,7 +18,7 @@ const sharkJawSpecs = [
 
 <BaseLayout
   title="Home"
-  description="SharkJaw — specialist supplier of shark jaw and towing pin systems for tugboats, AHTS and offshore vessels. 25-700 MT SWL. ABS/BV/CCS/DNV/LR/NK/KR/RINA certified. Hong Kong."
+  description="SharkJaw — specialist supplier of shark jaw and towing pin systems for tugboats, AHTS and offshore vessels. 25-700 MT SWL. ABS/BV/CCS/DNV/LR/NK/KR/RINA certified."
 >
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -45,7 +45,7 @@ const sharkJawSpecs = [
           </span>
           <span class="hero-trust-item">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            FOB / CIF / CFR from Hong Kong
+            FOB / CIF / CFR worldwide
           </span>
           <span class="hero-trust-item">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -53,14 +53,15 @@ const sharkJawSpecs = [
           </span>
         </div>
       </div>
-      <div class="hero-image-wrap" aria-hidden="true">
-        <div class="hero-image-placeholder">
-          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-            <path d="M8 12h8M12 8v8"/>
-          </svg>
-          <p>Hero image</p>
-        </div>
+      <div class="hero-image-wrap">
+        <img
+          src="/images/hero-shark-jaw-system.jpg"
+          alt="50T Shark Jaw & Hydraulic Power Unit — complete towing system"
+          class="hero-image"
+          width="800"
+          height="600"
+          loading="eager"
+        />
       </div>
     </div>
   </section>
@@ -125,7 +126,7 @@ const sharkJawSpecs = [
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
             </svg>
           </div>
-          <h3>Global Delivery from Hong Kong</h3>
+          <h3>Global Delivery</h3>
           <p>Flexible trade terms. FOB / CIF / CFR. T/T, L/C, D/P accepted.</p>
         </div>
 
@@ -144,6 +145,7 @@ const sharkJawSpecs = [
         <ProductCard
           title="Shark Jaw"
           slug="shark-jaw"
+          image="/images/products/shark-jaw-50t-front.jpg"
           swlRange="25–700 MT"
           description="Hydraulic chain & wire stoppers"
           certifications={['ABS','BV','CCS','DNV']}
@@ -151,6 +153,7 @@ const sharkJawSpecs = [
         <ProductCard
           title="Towing Pin"
           slug="towing-pin"
+          image="/images/products/shark-jaw-50t-front.jpg"
           swlRange="50–500 MT"
           description="Fixed & retractable towing pins"
           certifications={['ABS','BV','CCS','DNV']}
@@ -158,6 +161,7 @@ const sharkJawSpecs = [
         <ProductCard
           title="Combo System"
           slug="shark-jaw-towing-pin-combo"
+          image="/images/products/shark-jaw-50t-complete-system.jpg"
           swlRange="100–700 MT"
           description="Integrated shark jaw + towing pin"
           certifications={['ABS','BV','CCS','DNV']}
@@ -165,12 +169,14 @@ const sharkJawSpecs = [
         <ProductCard
           title="HPU"
           slug="hydraulic-power-unit"
+          image="/images/products/hpu-200t-pump-station.jpg"
           description="Dedicated hydraulic power units"
           certifications={['ABS','BV','CCS','DNV']}
         />
         <ProductCard
           title="Spare Parts"
           slug="spare-parts"
+          image="/images/products/shark-jaw-spare-parts-overview.jpg"
           description="Jaw inserts, seals, pins, valves"
           certifications={['ABS','BV','CCS','DNV']}
         />
@@ -237,7 +243,7 @@ const sharkJawSpecs = [
         <div class="step-card">
           <div class="step-number" aria-hidden="true">04</div>
           <h3>Delivery &amp; Support</h3>
-          <p>Worldwide delivery via FOB / CIF / CFR from Hong Kong. Ongoing technical support throughout the equipment's service life.</p>
+          <p>Worldwide delivery via FOB / CIF / CFR. Ongoing technical support throughout the equipment's service life.</p>
         </div>
 
       </div>
@@ -449,19 +455,13 @@ const sharkJawSpecs = [
     align-items: center;
     justify-content: center;
   }
-  .hero-image-placeholder {
+  .hero-image {
     width: 100%;
-    aspect-ratio: 4/3;
-    border: 2px dashed rgba(255,255,255,0.2);
+    max-width: 560px;
+    height: auto;
     border-radius: calc(var(--radius) * 2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    color: rgba(255,255,255,0.3);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    object-fit: cover;
   }
 
   /* ── Pillars ────────────────────────────────────────────── */

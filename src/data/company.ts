@@ -2,17 +2,17 @@
 
 export const company = {
   name: 'SharkJaw',
-  legalName: 'New Horizon Tech LLC',
+  legalName: 'Wartfila Machinery Service (Hongkong) Co., Limited',
   url: 'https://sharkjaw.net',
   email: 'sales@sharkjaw.net',
-  phone: '+1 713 875 9543',
-  whatsapp: '+17138759543',
+  phone: '+852 3115 8545',
+  whatsapp: '+85231158545',
   address: {
-    street: '30 N Gould St',
-    city: 'Sheridan',
-    region: 'WY',
-    country: 'US',
-    full: '30 N Gould St, Sheridan, WY 82801, USA',
+    street: 'Flat/RM A, 12/F ZJ 300, 300 Lockhart Road',
+    city: 'Wan Chai',
+    region: 'Hong Kong',
+    country: 'HK',
+    full: 'Flat/RM A, 12/F ZJ 300, 300 Lockhart Road, Wan Chai, Hong Kong',
   },
   social: {
     linkedin: '', // TODO: create LinkedIn company page

@@ -7,6 +7,7 @@ const products = defineCollection({
     title: z.string(),
     description: z.string(),
     heroImage: z.string().optional(),
+    gallery: z.array(z.string()).default([]),
     swlRange: z.string().optional(),
     types: z.array(z.string()).optional(),
     certifications: z.array(z.string()).default([]),

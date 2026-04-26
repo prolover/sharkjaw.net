@@ -37,6 +37,7 @@ interface Props {
     title: string;
     description: string;
     heroImage?: string;
+    gallery?: string[];
     specs?: Spec[];
     faq?: FAQItem[];
     certifications?: string[];
@@ -55,6 +56,7 @@ const {
   title,
   description,
   heroImage,
+  gallery = [],
   specs = [],
   faq = [],
   certifications = [],
@@ -147,11 +149,11 @@ const lastUpdatedFormatted = lastUpdated
     <section class="product-overview section">
       <div class="container product-overview-grid">
 
-        <!-- Left: Image Gallery (placeholder) -->
+        <!-- Left: Image Gallery -->
         <div class="product-gallery">
           {heroImage ? (
-            <div class="gallery-main">
-              <img src={heroImage} alt={title} class="gallery-img" />
+            <div class="gallery-main" id="gallery-main">
+              <img src={heroImage} alt={title} class="gallery-img" id="gallery-main-img" />
             </div>
           ) : (
             <div class="gallery-placeholder">
@@ -163,11 +165,25 @@ const lastUpdatedFormatted = lastUpdated
               <p>Product images available on request</p>
             </div>
           )}
-          <div class="gallery-thumbs gallery-thumbs-placeholder">
-            {[1, 2, 3].map(() => (
-              <div class="gallery-thumb"></div>
-            ))}
-          </div>
+          {gallery.length > 1 ? (
+            <div class="gallery-thumbs">
+              {gallery.map((img, i) => (
+                <button
+                  class={`gallery-thumb-btn ${i === 0 ? 'active' : ''}`}
+                  data-src={img}
+                  aria-label={`View image ${i + 1}`}
+                >
+                  <img src={img} alt={`${title} — view ${i + 1}`} class="gallery-thumb-img" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          ) : gallery.length === 0 && !heroImage ? null : (
+            <div class="gallery-thumbs gallery-thumbs-placeholder">
+              {[1, 2, 3].map(() => (
+                <div class="gallery-thumb"></div>
+              ))}
+            </div>
+          )}
         </div>
 
         <!-- Right: Quick Specs + CTA -->
@@ -500,6 +516,26 @@ const lastUpdatedFormatted = lastUpdated
   .gallery-thumbs-placeholder .gallery-thumb {
     opacity: 0.4;
   }
+  .gallery-thumb-btn {
+    aspect-ratio: 4/3;
+    border-radius: var(--radius);
+    border: 2px solid var(--sj-border);
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    background: var(--sj-light);
+    transition: border-color 0.2s;
+  }
+  .gallery-thumb-btn:hover,
+  .gallery-thumb-btn.active {
+    border-color: var(--sj-accent);
+  }
+  .gallery-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
   /* Sidebar */
   .product-sidebar {
@@ -705,3 +741,20 @@ const lastUpdatedFormatted = lastUpdated
     margin-bottom: var(--space-xl);
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const mainImg = document.getElementById('gallery-main-img') as HTMLImageElement | null;
+    if (!mainImg) return;
+    document.querySelectorAll('.gallery-thumb-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = (btn as HTMLElement).dataset.src;
+        if (src && mainImg) {
+          mainImg.src = src;
+          document.querySelectorAll('.gallery-thumb-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      });
+    });
+  });
+</script>

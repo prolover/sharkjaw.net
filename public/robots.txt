@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Block crawler waste
+Disallow: /api/
+Disallow: /404
+Disallow: /*?*
+
+# AI training crawlers — explicitly allow (B2B authority signal for AI search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://sharkjaw.net/sitemap-index.xml
