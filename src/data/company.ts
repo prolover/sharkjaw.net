@@ -3,6 +3,8 @@
 export const company = {
   name: 'SharkJaw',
   legalName: 'Wartfila Machinery Service (Hongkong) Co., Limited',
+  // Brand-facing short name (footer/About/signatures); legalName stays on Terms/Privacy/Schema/invoices
+  shortName: 'Wartfila HK Co., Limited',
   url: 'https://sharkjaw.net',
   email: 'sales@sharkjaw.net',
   phone: '+852 3115 8545',
