@@ -4,3 +4,7 @@ dist/
 .wrangler/
 .env
 .dev.vars
+
+# pre-edit backups
+bak/
+**/bak/
