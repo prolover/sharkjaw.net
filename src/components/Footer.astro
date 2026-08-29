@@ -47,20 +47,20 @@ const year = new Date().getFullYear();
 
       <!-- Certifications -->
       <div class="footer-col">
-        <h4>Certifications</h4>
+        <h4>Class Approvals Available</h4>
         <div class="footer-certs">
-          {company.certifications.map(cert => (
+          {company.classApprovalsAvailable.map(cert => (
             <span class="footer-cert-badge">{cert}</span>
           ))}
         </div>
         <p class="footer-cert-note">
-          Type approval available for all major classification societies.
+          Type approval available for all major classification societies. Approvals are held by the manufacturer; certificates are supplied with the goods.
         </p>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {year} {company.name}. All rights reserved. Operated by {company.shortName}.</p>
+      <p>&copy; {year} {company.name}. All rights reserved.</p>
       <div class="footer-legal">
         {footerNav.legal.map((link, i) => (
           <>

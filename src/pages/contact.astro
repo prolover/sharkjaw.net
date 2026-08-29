@@ -158,7 +158,7 @@ const errorCopy: Record<string, string> = {
             <div class="form-group">
               <label>Classification Society</label>
               <div class="checkbox-grid">
-                {company.certifications.map(cert => (
+                {company.classApprovalsAvailable.map(cert => (
                   <label class="checkbox-label">
                     <input type="checkbox" name="classification[]" value={cert} />
                     <span class="checkbox-box" aria-hidden="true"></span>

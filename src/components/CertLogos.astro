@@ -10,7 +10,7 @@ const { size = 'md', showLabel = true } = Astro.props;
 ---
 
 <div class:list={['cert-logos', `cert-logos-${size}`]}>
-  {company.certifications.map(cert => (
+  {company.classApprovalsAvailable.map(cert => (
     <div class="cert-logo-item">
       <div class="cert-logo-badge">{cert}</div>
     </div>
@@ -18,7 +18,7 @@ const { size = 'md', showLabel = true } = Astro.props;
 </div>
 {showLabel && (
   <p class="cert-logos-label">
-    Type approval available for all major classification societies
+    Type approval available for all major classification societies — approvals held by the manufacturer
   </p>
 )}
 

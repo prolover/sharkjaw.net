@@ -20,12 +20,18 @@ export const company = {
     linkedin: '', // TODO: create LinkedIn company page
   },
   founder: {
-    name: 'Qiangbin Chu',
-    displayName: 'David Zhu',
+    // 🔴 署名唯一权威源 = OS/05_Assets/04_Brand/signatory.json → brands.sharkjaw
+    //    2026-08-29 更正：原写 name:'Qiangbin Chu'（Lmart 专属身份，禁跨用）
+    //    + displayName:'David Zhu'（在 forbidden_variants 里，永久禁用）。两个都不能用。
+    name: 'David Qiangbin Zhu',
+    displayName: 'David Qiangbin Zhu',
     title: 'Founder & Marine Equipment Specialist',
     linkedin: 'https://www.linkedin.com/in/qiangbinchu',
   },
-  certifications: ['ABS', 'BV', 'CCS', 'DNV', 'LR', 'NK', 'KR', 'RINA'] as const,
+  // 🔴 「可取证」不是「已持证」—— Wartfila HK 自身不持有任何船级社认可，
+  //    认可由制造厂持有、证书随货转交。SSOT = OS/.../Certifications/certs_sharkjaw.json
+  //    字段名 2026-08-29 由 certifications 改名，避免被渲染成我方资质徽章。
+  classApprovalsAvailable: ['ABS', 'BV', 'CCS', 'DNV', 'LR', 'NK', 'KR', 'RINA'] as const,
   stats: {
     yearsExperience: '15+',
     classificationSocieties: 8,

@@ -15,7 +15,8 @@ import { company } from '../data/company';
       </a>
     </div>
     <div class="trust-bar-certs">
-      {company.certifications.map(cert => (
+      <span class="trust-bar-cert-label">Class approvals available:</span>
+      {company.classApprovalsAvailable.map(cert => (
         <span class="trust-bar-cert">{cert}</span>
       ))}
     </div>
